@@ -1,7 +1,6 @@
 package controller;
 
-import dao.IStudent;
-import dao.StudentDAO;
+import dao.*;
 import model.Student;
 
 import javax.servlet.*;
@@ -13,6 +12,8 @@ import java.util.List;
 @WebServlet(name = "Home", value = "/home")
 public class Home extends HttpServlet {
     IStudent iStudent = new StudentDAO();
+    IAddress address = new AddressDAO();
+    IClass iClass = new ClassDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");

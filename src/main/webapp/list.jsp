@@ -31,9 +31,9 @@
             <tr>
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
-                <td><c:out value="${user.address}"/></td>
+                <td><c:out value="${user.address.address}"/></td>
                 <td><c:out value="${user.phone}"/></td>
-                <td><c:out value="${user.classes}"/></td>
+                <td><c:out value="${user.classes.name}"/></td>
             </tr>
         </c:forEach>
     </table>

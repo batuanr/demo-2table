@@ -1,7 +1,10 @@
 package dao;
 
 import config.ConnectionSingleton;
+import model.Address;
+import model.Classes;
 import model.Student;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO implements IStudent{
-    private static final String SELECT_ALL = "select S.id, S.fullName,S.phone, C.name, address from Students S" +
-            " join Address A on A.id = S.addressID" +
-            " join Classes C on C.id = S.classID";
+    private static final String SELECT_ALL = "select * from Students";
+    IClass iClass = new ClassDAO();
+    IAddress iaddress = new AddressDAO();
     private Connection connection = ConnectionSingleton.getConnection();
     @Override
     public Student selectStudent(int id) {
@@ -29,9 +32,12 @@ public class StudentDAO implements IStudent{
             while (resultSet.next()){
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("fullName");
-                String address = resultSet.getString("address");
+                int addressID = resultSet.getInt("addressID");
+                int classesID = resultSet.getInt("classID");
+                Classes classes = iClass.findClassById(classesID);
                 String phone = resultSet.getString("phone");
-                String classes = resultSet.getString("name");
+
+                Address address = iaddress.findAddressById(addressID);
                 studentList.add(new Student(id, name, address, phone, classes));
             }
         } catch (SQLException e) {

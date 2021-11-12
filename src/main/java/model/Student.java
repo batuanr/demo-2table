@@ -3,21 +3,21 @@ package model;
 public class Student {
     private int id;
     private String name;
-    private String address;
+    private Address address;
     private String phone;
-    private String classes;
+    private Classes classes;
 
     public Student() {
     }
 
-    public Student(String name, String address, String phone, String classes) {
+    public Student(String name, Address address, String phone, Classes classes) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.classes = classes;
     }
 
-    public Student(int id, String name, String address, String phone, String classes) {
+    public Student(int id, String name, Address address, String phone, Classes classes) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -41,11 +41,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -57,11 +57,11 @@ public class Student {
         this.phone = phone;
     }
 
-    public String getClasses() {
+    public Classes getClasses() {
         return classes;
     }
 
-    public void setClasses(String classes) {
+    public void setClasses(Classes classes) {
         this.classes = classes;
     }
 }
