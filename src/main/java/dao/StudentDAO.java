@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO implements IStudent{
-    private static final String SELECT_ALL = "select * from Students";
+    private static final String SELECT_ALL = "select * from Students s" +
+            " join Address A on A.id = s.addressID" +
+            " join Classes C on C.id = s.classID";
     IClass iClass = new ClassDAO();
     IAddress iaddress = new AddressDAO();
     private Connection connection = ConnectionSingleton.getConnection();
@@ -30,15 +32,19 @@ public class StudentDAO implements IStudent{
             PreparedStatement statement = connection.prepareStatement(SELECT_ALL);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt(1);
                 String name = resultSet.getString("fullName");
                 int addressID = resultSet.getInt("addressID");
                 int classesID = resultSet.getInt("classID");
-                Classes classes = iClass.findClassById(classesID);
+                String className = resultSet.getString("name");
+                String language = resultSet.getString("language");
+                String des = resultSet.getString("description");
+                Classes classes = new Classes(classesID, className, language, des);
+                String address = resultSet.getString("address");
                 String phone = resultSet.getString("phone");
 
-                Address address = iaddress.findAddressById(addressID);
-                studentList.add(new Student(id, name, address, phone, classes));
+                Address add = new Address(addressID, address);
+                studentList.add(new Student(id, name, add, phone, classes));
             }
         } catch (SQLException e) {
             e.printStackTrace();
